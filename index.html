@@ -18,14 +18,9 @@
   initial-value: 0;
 }
 
-/* Animação de 0 a 360 para um ciclo perfeito */
 @keyframes rgb-cycle {
-  from {
-    --hue: 0;
-  }
-  to {
-    --hue: 360;
-  }
+  from { --hue: 0; }
+  to { --hue: 360; }
 }
 
 /* Reset e Estilos Base */
@@ -38,7 +33,6 @@ body, html {
   overflow-x: hidden;
   position: relative;
   z-index: 1;
-  /* Animação com delay negativo para começar no verde */
   animation: rgb-cycle 5s linear -1.67s infinite;
 }
 #particles-js { position: fixed; width: 100%; height: 100%; background: #000; top: 0; left: 0; z-index: 0; }
@@ -46,14 +40,14 @@ body, html {
   position: relative; 
   z-index: 1; 
   max-width: 720px; 
-  margin: 50px auto; /* <-- CÓDIGO ALTERADO: Aumentei a margem para 50px */
+  margin: 50px auto;
   background: rgba(0,0,0,0.15); 
   border-radius: 20px; 
   padding: 30px 35px; 
   backdrop-filter: blur(12px); 
   border: 2px solid hsl(var(--hue), 100%, 50%, 0.8);
   box-shadow: 0 0 40px hsl(var(--hue), 100%, 50%, 0.7);
-  will-change: border-color, box-shadow; /* Dica de performance */
+  will-change: border-color, box-shadow;
 }
 
 /* Cabeçalho e UI Principal */
@@ -66,7 +60,7 @@ header { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; lin
   flex-shrink: 0; 
   border: 2px solid hsl(var(--hue), 100%, 50%, 0.8); 
   box-shadow: 0 0 15px hsl(var(--hue), 100%, 50%, 0.7);
-  will-change: border-color, box-shadow; /* Dica de performance */
+  will-change: border-color, box-shadow;
 }
 h1 { font-size: 40px; color: #aaffaa; text-shadow: 0 0 5px #0f0, 0 0 12px #00ff0099; user-select: none; }
 .verificado-badge-img {
@@ -112,7 +106,7 @@ input[type="search"]:focus { box-shadow: inset 0 0 20px #00b7ffe5, 0 0 25px #00f
   animation: fadeInUp 0.6s forwards; 
   animation-delay: var(--delay);
   box-shadow: 0 0 15px hsl(var(--hue), 100%, 50%, 0.55);
-  will-change: box-shadow; /* Dica de performance */
+  will-change: box-shadow;
 }
 .subscription-item:hover { background: rgba(0, 102, 0, 0.6); }
 .sub-logo { width: 50px; height: auto; object-fit: contain; filter: drop-shadow(0 0 3px #00ff00cc); flex-shrink: 0; }
@@ -136,7 +130,7 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
   text-decoration: none; 
   transition: all 0.3s ease;
   box-shadow: 0 0 10px hsl(var(--hue), 100%, 50%, 0.8);
-  will-change: box-shadow; /* Dica de performance */
+  will-change: box-shadow;
 }
 .sub-buy-whatsapp:hover { 
   background: #005500cc; 
@@ -164,7 +158,7 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
   position: relative; 
   border: 2px solid hsl(var(--hue), 100%, 50%, 0.8);
   box-shadow: 0 0 50px hsl(var(--hue), 100%, 50%, 0.7);
-  will-change: border-color, box-shadow; /* Dica de performance */
+  will-change: border-color, box-shadow;
 }
 .modal-close { position: absolute; top: 15px; right: 20px; font-size: 30px; color: #0f0; cursor: pointer; border: none; background: none; text-shadow: 0 0 10px #0f0; }
 #modal-title { margin-bottom: 15px; }
@@ -176,6 +170,15 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
 footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15px; color: #005500cc; text-shadow: 0 0 8px #00ff0066; user-select: none; }
 
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* --- CORREÇÃO PARA CELULAR --- */
+@media (max-width: 720px) {
+  .container {
+    /* Adiciona margens laterais para impedir o corte */
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
 </style>
 </head>
 <body>
