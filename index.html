@@ -91,6 +91,25 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
 footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15px; color: #005500cc; text-shadow: 0 0 8px #00ff0066; user-select: none; }
 
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* --- CORREÇÃO PARA CELULAR --- */
+@media (max-width: 720px) {
+  .container {
+    /* Adiciona margens laterais para impedir o corte da borda */
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  p {
+    /* Impede a quebra de linha no preço */
+    white-space: nowrap;
+  }
+  .sub-coming-soon {
+    /* Ajusta o botão para telas menores */
+    min-width: 130px;
+    font-size: 12px;
+  }
+}
+
 </style>
 </head>
 <body>
