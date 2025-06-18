@@ -14,7 +14,15 @@
 <style>
   /* Reset e Estilos Base */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body, html { height: 100%; background: #000; font-family: 'Bebas Neue', cursive, sans-serif; color: #0f0; overflow-x: hidden; position: relative; z-index: 1; }
+  body, html { 
+    height: 100%; 
+    background: #000; 
+    font-family: 'Bebas Neue', cursive, sans-serif; 
+    color: #0f0; 
+    overflow-x: hidden; 
+    position: relative; 
+    z-index: 1; 
+  }
   #particles-js { position: fixed; width: 100%; height: 100%; background: #000; top: 0; left: 0; z-index: 0; }
   .container { position: relative; z-index: 1; max-width: 720px; margin: 30px auto; background: rgba(0,0,0,0.15); border-radius: 20px; padding: 30px 35px; box-shadow: 0 0 40px #00ff00aa; backdrop-filter: blur(12px); border: 2px solid #00ff00cc; }
   
@@ -54,6 +62,9 @@
   .faq summary { font-size: 18px; cursor: pointer; color: #aaffaa; }
   .faq summary:hover { color: #00ff00; }
   .faq p { margin-top: 10px; color: #ccffccbb; }
+  .faq p strong { color: #00ff00; }
+  .faq p small { color: #ffaaaa; }
+
 
   /* Modal (Pop-up) */
   .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; }
@@ -62,6 +73,7 @@
   #modal-title { margin-bottom: 15px; }
   #modal-body p { margin-bottom: 10px; font-size: 16px; }
   #modal-body strong { color: #00ff00; }
+  #modal-body small { color: #ffaaaa; }
 
   /* Rodapé */
   footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15px; color: #005500cc; text-shadow: 0 0 8px #00ff0066; user-select: none; }
@@ -110,6 +122,15 @@
             <summary>Quais são as formas de pagamento?</summary>
             <p>No momento, aceitamos pagamentos via PIX. A chave será informada durante o atendimento no WhatsApp.</p>
         </details>
+        <details>
+            <summary>Quais são as regras das contas compartilhadas?</summary>
+            <p><strong>É fundamental seguir as regras para não perder o acesso:</strong><br><br>
+               1. É proibido alterar o e-mail ou a senha da conta.<br>
+               2. Não é permitido criar novos perfis ou colocar senha (PIN) no seu.<br>
+               3. Utilize apenas o seu perfil. Não mexa nos perfis de outros usuários.<br><br>
+               <small>O descumprimento de qualquer regra resulta na perda total da garantia.</small>
+            </p>
+        </details>
     </section>
 
     <footer>
@@ -144,6 +165,21 @@
         for (const [key, value] of Object.entries(item.detalhes)) {
             detailsHTML += `<p><strong>${key}:</strong> ${value}</p>`;
         }
+        
+        if (item.detalhes && item.detalhes.Tipo === 'Conta compartilhada') {
+            const regrasHTML = `
+                <hr style="border-color:#004400cc; margin:15px 0;">
+                <p><strong>REGRAS DA CONTA:</strong></p>
+                <p style="font-size:13px; line-height:1.4;">
+                   1. Proibido alterar e-mail ou senha.<br>
+                   2. Proibido colocar PIN no seu perfil.<br>
+                   3. Use apenas o seu perfil.<br>
+                   <small>O descumprimento anula a garantia.</small>
+                </p>
+            `;
+            detailsHTML += regrasHTML;
+        }
+
         modalBody.innerHTML = detailsHTML;
         modal.style.display = 'flex';
     }
