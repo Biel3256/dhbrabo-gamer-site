@@ -23,6 +23,9 @@ body, html {
   position: relative;
   z-index: 1;
 }
+body.modal-open {
+    overflow: hidden; /* Impede o scroll do corpo da página quando um modal está aberto */
+}
 #particles-js { position: fixed; width: 100%; height: 100%; background: #000; top: 0; left: 0; z-index: 0; }
 .container { position: relative; z-index: 1; max-width: 720px; margin: 30px auto; background: rgba(0,0,0,0.15); border-radius: 20px; padding: 30px 35px; box-shadow: 0 0 40px #00ff00aa; backdrop-filter: blur(12px); border: 2px solid #00ff00cc; }
 
@@ -54,7 +57,7 @@ input[type="search"] {
 input[type="search"]::placeholder { color: #ffffff66; }
 input[type="search"]:focus { box-shadow: inset 0 0 20px #00b7ffe5, 0 0 25px #00ff00cc; }
 
-/* NOVO: Estilo para o Contador Principal */
+/* Contador Principal */
 #main-countdown-timer {
   text-align: center;
   margin: -10px 0 25px 0;
@@ -125,6 +128,49 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
 #modal-body p { margin-bottom: 10px; font-size: 16px; }
 #modal-body strong { color: #00ff40; }
 #modal-body small { color: #ffaaaa; }
+
+/* NOVO: Estilos para o Modal de Termos de Uso */
+#terms-modal .modal-content {
+    max-width: 600px;
+}
+#terms-text {
+    max-height: 300px; /* Altura máxima para o texto */
+    overflow-y: auto; /* Adiciona barra de rolagem se o texto for longo */
+    margin-bottom: 20px;
+    padding-right: 15px; /* Espaço para a barra de rolagem */
+    color: #ccffccbb;
+    font-size: 15px;
+    font-family: sans-serif; /* Fonte mais legível para texto longo */
+    line-height: 1.5;
+}
+#terms-text h4 {
+    color: #aaffaa;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+}
+#terms-text p {
+    font-size: 14px;
+    color: #ccffccbb;
+}
+#accept-terms-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: #005500cc;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    font-family: 'Bebas Neue', cursive;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#accept-terms-btn:hover {
+    background: #007700cc;
+    box-shadow: 0 0 15px #00ff0088;
+}
 
 /* Rodapé */
 footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15px; color: #005500cc; text-shadow: 0 0 8px #00ff0066; user-select: none; }
@@ -238,7 +284,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   background: #007700cc;
   box-shadow: 0 0 15px #00ff0088;
 }
-/* NOVO: Estilo para o botão de checkout desativado */
 #checkout-btn:disabled {
     background: #333;
     color: #777;
@@ -260,6 +305,32 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 </head>
 <body>
 <div id="particles-js" aria-hidden="true"></div>
+
+<div id="terms-modal" class="modal-overlay">
+    <div class="modal-content">
+        <h2 class="section-title">Termos de Uso e Serviço</h2>
+        <div id="terms-text">
+            <h4>1. Sobre o Serviço</h4>
+            <p>Bem-vindo ao DH BRABO STREAMING. Oferecemos acesso a contas compartilhadas de serviços de streaming. Ao continuar, você concorda que o serviço principal é um agendamento de compra, a ser finalizada via WhatsApp na data de lançamento: <strong>21 de Junho de 2025</strong>.</p>
+
+            <h4>2. Regras da Conta Compartilhada</h4>
+            <p>Para garantir a qualidade do serviço para todos, é fundamental seguir as regras abaixo. O descumprimento de qualquer uma delas resultará na <strong>perda imediata do acesso e da garantia</strong>, sem direito a reembolso.</p>
+            <p>
+                <strong>1. É PROIBIDO</strong> alterar o e-mail ou a senha da conta fornecida.<br>
+                <strong>2. É PROIBIDO</strong> criar novos perfis ou alterar o nome dos perfis existentes.<br>
+                <strong>3. É PROIBIDO</strong> colocar senha (PIN) de acesso no seu perfil.<br>
+                <strong>4. UTILIZE APENAS</strong> o perfil designado a você. Não acesse ou modifique o perfil de outros usuários.
+            </p>
+
+            <h4>3. Pagamento e Garantia</h4>
+            <p>O pagamento será processado via <strong>PIX</strong> durante o atendimento no WhatsApp. Oferecemos garantia de acesso durante todo o período contratado. Em caso de problemas, nosso suporte via WhatsApp estará disponível para ajudar.</p>
+
+            <p style="margin-top: 20px;">Ao clicar em "Aceitar e Continuar", você confirma que leu, compreendeu e concorda com todos os termos e condições aqui descritos.</p>
+        </div>
+        <button id="accept-terms-btn">Aceitar e Continuar</button>
+    </div>
+</div>
+
 
 <div id="cart-button" onclick="toggleCartModal()">
   <i class="fas fa-shopping-cart"></i>
@@ -343,6 +414,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 
   let cart = [];
 
+  // Referências aos elementos do DOM
   const itemModal = document.getElementById('itemModal');
   const modalTitle = document.getElementById('modal-title');
   const modalBody = document.getElementById('modal-body');
@@ -352,6 +424,11 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   const cartModal = document.getElementById('cart-modal');
   const cartItemsList = document.getElementById('cart-items-list');
   const cartTotalPrice = document.getElementById('cart-total-price');
+  
+  // NOVO: Referências ao modal de Termos de Uso
+  const termsModal = document.getElementById('terms-modal');
+  const acceptTermsBtn = document.getElementById('accept-terms-btn');
+
 
   function addToCart(subId) {
     if (cart.find(item => item.id === subId)) return;
@@ -410,7 +487,9 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   }
 
   function toggleCartModal() {
-    cartModal.style.display = cartModal.style.display === 'flex' ? 'none' : 'flex';
+    const isOpen = cartModal.style.display === 'flex';
+    cartModal.style.display = isOpen ? 'none' : 'flex';
+    document.body.classList.toggle('modal-open', !isOpen);
   }
 
   function checkout() {
@@ -451,10 +530,12 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       }
       modalBody.innerHTML = detailsHTML;
       itemModal.style.display = 'flex';
+      document.body.classList.add('modal-open');
   }
 
   function closeModal() {
       itemModal.style.display = 'none';
+      document.body.classList.remove('modal-open');
   }
   
   function mostrarAssinaturas(lista) {
@@ -485,7 +566,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     mostrarAssinaturas(subsFiltradas);
   }
   
-  // NOVO: LÓGICA DO CONTADOR PRINCIPAL
   function initializeLaunchCountdown() {
     const checkoutBtn = document.getElementById('checkout-btn');
     const mainCountdownDisplay = document.getElementById('main-countdown-timer');
@@ -513,14 +593,29 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     }, 1000);
   }
   
+  // Evento principal que roda quando a página carrega
   document.addEventListener('DOMContentLoaded', function() {
+      // NOVO: Lógica para mostrar o modal de termos
+      if (!localStorage.getItem('termsAccepted')) {
+          termsModal.style.display = 'flex';
+          document.body.classList.add('modal-open');
+      }
+
       mostrarAssinaturas(assinaturas);
-      initializeLaunchCountdown(); // Inicia o novo contador
+      initializeLaunchCountdown();
 
       particlesJS("particles-js", {
           particles: { number: { value: 150, density: { enable: true, value_area: 700 } }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.35, anim: { enable: true, speed: 1.2, opacity_min: 0.15, sync: false } }, size: { value: 3, random: true, anim: { enable: true, speed: 4, size_min: 1, sync: false } }, line_linked: { enable: true, distance: 120, color: "#00ff00", opacity: 0.18, width: 1 }, move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: false, mode: "" }, onclick: { enable: false, mode: "" }, resize: true } }, retina_detect: true 
       });
   });
+
+  // NOVO: Evento para o botão de aceitar os termos
+  acceptTermsBtn.addEventListener('click', () => {
+      termsModal.style.display = 'none';
+      localStorage.setItem('termsAccepted', 'true');
+      document.body.classList.remove('modal-open');
+  });
+
 </script>
 </body>
 </html>
