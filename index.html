@@ -24,7 +24,7 @@ body, html {
   z-index: 1;
 }
 body.modal-open {
-    overflow: hidden; /* Impede o scroll do corpo da página quando um modal está aberto */
+    overflow: hidden;
 }
 #particles-js { position: fixed; width: 100%; height: 100%; background: #000; top: 0; left: 0; z-index: 0; }
 .container { position: relative; z-index: 1; max-width: 720px; margin: 30px auto; background: rgba(0,0,0,0.15); border-radius: 20px; padding: 30px 35px; box-shadow: 0 0 40px #00ff00aa; backdrop-filter: blur(12px); border: 2px solid #00ff00cc; }
@@ -103,11 +103,11 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
   transform: scale(1.05);
 }
 .add-to-cart-btn.in-cart {
-  background: #333;
-  color: #777;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
+  background: #004500cc; /* Cor um pouco diferente para indicar que já está no carrinho */
+  box-shadow: 0 0 15px #00ff00cc;
+}
+.add-to-cart-btn.in-cart:hover {
+    background: #006600cc;
 }
 .add-to-cart-btn .fa-check { margin-right: 5px; }
 
@@ -129,18 +129,18 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
 #modal-body strong { color: #00ff40; }
 #modal-body small { color: #ffaaaa; }
 
-/* NOVO: Estilos para o Modal de Termos de Uso */
+/* Estilos para o Modal de Termos de Uso */
 #terms-modal .modal-content {
     max-width: 600px;
 }
 #terms-text {
-    max-height: 300px; /* Altura máxima para o texto */
-    overflow-y: auto; /* Adiciona barra de rolagem se o texto for longo */
+    max-height: 300px;
+    overflow-y: auto;
     margin-bottom: 20px;
-    padding-right: 15px; /* Espaço para a barra de rolagem */
+    padding-right: 15px;
     color: #ccffccbb;
     font-size: 15px;
-    font-family: sans-serif; /* Fonte mais legível para texto longo */
+    font-family: sans-serif;
     line-height: 1.5;
 }
 #terms-text h4 {
@@ -312,7 +312,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         <div id="terms-text">
             <h4>1. Sobre o Serviço</h4>
             <p>Bem-vindo ao DH BRABO STREAMING. Oferecemos acesso a contas compartilhadas de serviços de streaming. Ao continuar, você concorda que o serviço principal é um agendamento de compra, a ser finalizada via WhatsApp na data de lançamento: <strong>21 de Junho de 2025</strong>.</p>
-
             <h4>2. Regras da Conta Compartilhada</h4>
             <p>Para garantir a qualidade do serviço para todos, é fundamental seguir as regras abaixo. O descumprimento de qualquer uma delas resultará na <strong>perda imediata do acesso e da garantia</strong>, sem direito a reembolso.</p>
             <p>
@@ -321,16 +320,13 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
                 <strong>3. É PROIBIDO</strong> colocar senha (PIN) de acesso no seu perfil.<br>
                 <strong>4. UTILIZE APENAS</strong> o perfil designado a você. Não acesse ou modifique o perfil de outros usuários.
             </p>
-
             <h4>3. Pagamento e Garantia</h4>
             <p>O pagamento será processado via <strong>PIX</strong> durante o atendimento no WhatsApp. Oferecemos garantia de acesso durante todo o período contratado. Em caso de problemas, nosso suporte via WhatsApp estará disponível para ajudar.</p>
-
             <p style="margin-top: 20px;">Ao clicar em "Aceitar e Continuar", você confirma que leu, compreendeu e concorda com todos os termos e condições aqui descritos.</p>
         </div>
         <button id="accept-terms-btn">Aceitar e Continuar</button>
     </div>
 </div>
-
 
 <div id="cart-button" onclick="toggleCartModal()">
   <i class="fas fa-shopping-cart"></i>
@@ -414,7 +410,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 
   let cart = [];
 
-  // Referências aos elementos do DOM
   const itemModal = document.getElementById('itemModal');
   const modalTitle = document.getElementById('modal-title');
   const modalBody = document.getElementById('modal-body');
@@ -425,27 +420,43 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   const cartItemsList = document.getElementById('cart-items-list');
   const cartTotalPrice = document.getElementById('cart-total-price');
   
-  // NOVO: Referências ao modal de Termos de Uso
   const termsModal = document.getElementById('terms-modal');
   const acceptTermsBtn = document.getElementById('accept-terms-btn');
 
+  // --- FUNÇÕES DO CARRINHO ---
 
+  // ALTERADO: Lógica para permitir adicionar itens duplicados com confirmação
   function addToCart(subId) {
-    if (cart.find(item => item.id === subId)) return;
+    const isAlreadyInCart = cart.find(item => item.id === subId);
+
+    if (isAlreadyInCart) {
+        // Se o item já existe, pergunta ao usuário se ele quer adicionar outro.
+        if (!confirm("Este item já está no carrinho. Deseja adicioná-lo novamente?")) {
+            return; // Se o usuário clicar em "Cancelar", a função para aqui.
+        }
+    }
+
     const subToAdd = assinaturas.find(sub => sub.id === subId);
     if (subToAdd) {
-      cart.push(subToAdd);
+      // Cria um novo objeto para o carrinho com um ID único
+      const newItem = {
+          ...subToAdd,
+          cartItemId: Date.now() + Math.random() // ID único para este item específico no carrinho
+      };
+      cart.push(newItem);
       updateCartUI();
       updateAddToCartButtons();
     }
   }
 
-  function removeFromCart(subId) {
-    cart = cart.filter(item => item.id !== subId);
+  // ALTERADO: Remove o item pelo seu ID único do carrinho
+  function removeFromCart(cartItemId) {
+    cart = cart.filter(item => item.cartItemId !== cartItemId);
     updateCartUI();
     updateAddToCartButtons();
   }
 
+  // ALTERADO: Usa o 'cartItemId' para o botão de remoção
   function updateCartUI() {
     if (cart.length > 0) {
       cartCount.textContent = cart.length;
@@ -464,7 +475,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
                 <div class="cart-item-name">${item.nome}</div>
                 <div class="cart-item-price">R$ ${item.preco}</div>
             </div>
-            <button class="remove-from-cart-btn" onclick="removeFromCart('${item.id}')" title="Remover item">×</button>
+            <button class="remove-from-cart-btn" onclick="removeFromCart(${item.cartItemId})" title="Remover item">×</button>
             </div>
         `;
         cartItemsList.innerHTML += itemHTML;
@@ -474,6 +485,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     cartTotalPrice.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
   }
   
+  // ALTERADO: Botão não é mais desativado
   function updateAddToCartButtons() {
     const allBtns = document.querySelectorAll('.add-to-cart-btn');
     allBtns.forEach(btn => {
@@ -481,15 +493,13 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         if (cart.find(item => item.id === subId)) {
             btn.innerHTML = `<i class="fas fa-check"></i> Agendado`;
             btn.classList.add('in-cart');
-            btn.disabled = true;
+            // A linha 'btn.disabled = true;' foi removida para que o botão continue clicável.
+        } 
+        else {
+            btn.innerHTML = `Agendar`;
+            btn.classList.remove('in-cart');
         }
     });
-  }
-
-  function toggleCartModal() {
-    const isOpen = cartModal.style.display === 'flex';
-    cartModal.style.display = isOpen ? 'none' : 'flex';
-    document.body.classList.toggle('modal-open', !isOpen);
   }
 
   function checkout() {
@@ -498,15 +508,33 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         return;
     }
     let mensagem = "Olá! Tenho interesse em finalizar meu agendamento com as seguintes assinaturas:\n\n";
-    cart.forEach(item => {
-        mensagem += `- ${item.nome} (R$ ${item.preco})\n`;
+    
+    // Agrupa itens iguais para uma mensagem mais limpa
+    const itemCounts = cart.reduce((acc, item) => {
+        acc[item.nome] = (acc[item.nome] || 0) + 1;
+        return acc;
+    }, {});
+
+    Object.keys(itemCounts).forEach(itemName => {
+        const item = assinaturas.find(sub => sub.nome === itemName);
+        const count = itemCounts[itemName];
+        mensagem += `- ${count}x ${item.nome} (R$ ${item.preco} cada)\n`;
     });
+
     const total = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
     mensagem += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
     const whatsappLink = `https://wa.me/5581991822689?text=${encodeURIComponent(mensagem)}`;
     window.open(whatsappLink, '_blank');
   }
 
+  // --- FUNÇÕES DE MODAL E VISUALIZAÇÃO ---
+
+  function toggleCartModal() {
+    const isOpen = cartModal.style.display === 'flex';
+    cartModal.style.display = isOpen ? 'none' : 'flex';
+    document.body.classList.toggle('modal-open', !isOpen);
+  }
+  
   function openModal(itemId) {
       const item = assinaturas.find(i => i.id === itemId);
       if (!item) return;
@@ -577,7 +605,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 
         if (distance <= 0) {
             clearInterval(countdownInterval);
-            mainCountdownDisplay.style.display = 'none'; // Esconde o contador
+            mainCountdownDisplay.style.display = 'none';
             checkoutBtn.disabled = false;
             checkoutBtn.textContent = 'Finalizar via WhatsApp';
         } else {
@@ -593,9 +621,9 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     }, 1000);
   }
   
-  // Evento principal que roda quando a página carrega
+  // --- EVENTOS PRINCIPAIS ---
+
   document.addEventListener('DOMContentLoaded', function() {
-      // NOVO: Lógica para mostrar o modal de termos
       if (!localStorage.getItem('termsAccepted')) {
           termsModal.style.display = 'flex';
           document.body.classList.add('modal-open');
@@ -609,7 +637,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       });
   });
 
-  // NOVO: Evento para o botão de aceitar os termos
   acceptTermsBtn.addEventListener('click', () => {
       termsModal.style.display = 'none';
       localStorage.setItem('termsAccepted', 'true');
