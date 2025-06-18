@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
-/* Reset e Estilos Base */
+/* Estilos Anteriores (sem alterações)... */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body, html {
   height: 100%;
@@ -28,8 +28,6 @@ body.modal-open {
 }
 #particles-js { position: fixed; width: 100%; height: 100%; background: #000; top: 0; left: 0; z-index: 0; }
 .container { position: relative; z-index: 1; max-width: 720px; margin: 30px auto; background: rgba(0,0,0,0.15); border-radius: 20px; padding: 30px 35px; box-shadow: 0 0 40px #00ff00aa; backdrop-filter: blur(12px); border: 2px solid #00ff00cc; }
-
-/* Cabeçalho e UI Principal */
 header { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; line-height: 1; }
 .logo-circular { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #00ff00cc; box-shadow: 0 0 15px #00ff00aa; display: block; flex-shrink: 0; }
 h1 { font-size: 40px; color: #aaffaa; text-shadow: 0 0 5px #0f0, 0 0 12px #00ff0099; user-select: none; }
@@ -56,8 +54,6 @@ input[type="search"] {
 }
 input[type="search"]::placeholder { color: #ffffff66; }
 input[type="search"]:focus { box-shadow: inset 0 0 20px #00b7ffe5, 0 0 25px #00ff00cc; }
-
-/* Contador Principal */
 #main-countdown-timer {
   text-align: center;
   margin: -10px 0 25px 0;
@@ -70,8 +66,6 @@ input[type="search"]:focus { box-shadow: inset 0 0 20px #00b7ffe5, 0 0 25px #00f
   color: #ffffffaa;
   display: block;
 }
-
-/* Assinaturas */
 .section-title { color:rgba(21, 255, 0, 0.356); margin-bottom:15px; user-select:none; text-shadow: 0 0 10px #00ff00; }
 .subscriptions, .faq { margin-top: 40px; padding-top: 20px; border-top: 2px solid #004400cc; }
 .subscription-item { display: flex; align-items: center; gap: 15px; background: rgba(0, 51, 0, 0.4); border-radius: 15px; padding: 12px 20px; margin-bottom: 16px; box-shadow: 0 0 15px #00ff0088; transition: all 0.3s ease; cursor: default; }
@@ -80,7 +74,6 @@ input[type="search"]:focus { box-shadow: inset 0 0 20px #00b7ffe5, 0 0 25px #00f
 .sub-info { display: flex; align-items: center; flex-grow: 1; color: #aaffaa; cursor: pointer;}
 h3 { font-size: 22px; margin-bottom: 5px; color: #aaffaa; text-shadow: 0 0 6px #00ff0088, 0 0 10px #00ff00bb; }
 p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
-
 .add-to-cart-btn {
   font-family: 'Bebas Neue', cursive;
   font-weight: 700;
@@ -110,17 +103,12 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
     background: #006600cc;
 }
 .add-to-cart-btn .fa-check { margin-right: 5px; }
-
-
-/* FAQ */
 .faq details { background: rgba(0, 30, 0, 0.3); border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid #004400cc; }
 .faq summary { font-size: 18px; cursor: pointer; color: #aaffaa; }
 .faq summary:hover { color: #00ff00; }
 .faq p { margin-top: 10px; color: #ccffccbb; }
 .faq p strong { color: #00ff00; }
 .faq p small { color: #ffaaaa; }
-
-/* Modal (Pop-up) */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; }
 .modal-content { background: #050a05; border: 2px solid #00ff00cc; border-radius: 20px; padding: 30px; max-width: 500px; width: 90%; box-shadow: 0 0 50px #00ff00aa; position: relative; }
 .modal-close { position: absolute; top: 15px; right: 20px; font-size: 30px; color: #0f0; cursor: pointer; border: none; background: none; text-shadow: 0 0 10px #0f0; }
@@ -128,8 +116,6 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
 #modal-body p { margin-bottom: 10px; font-size: 16px; }
 #modal-body strong { color: #00ff40; }
 #modal-body small { color: #ffaaaa; }
-
-/* Estilos para o Modal de Termos de Uso */
 #terms-modal .modal-content {
     max-width: 600px;
 }
@@ -171,11 +157,7 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
     background: #007700cc;
     box-shadow: 0 0 15px #00ff0088;
 }
-
-/* Rodapé */
 footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15px; color: #005500cc; text-shadow: 0 0 8px #00ff0066; user-select: none; }
-
-/* Estilos do Carrinho */
 #cart-button {
   position: fixed;
   top: 25px;
@@ -257,15 +239,13 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 .remove-from-cart-btn:hover {
   color: #ff8888;
 }
-
-/* Estilos para Cupom */
-.coupon-area {
+.coupon-area, .credit-area {
     display: flex;
     margin-top: 15px;
     margin-bottom: 5px;
     gap: 10px;
 }
-#coupon-input {
+#coupon-input, #credit-code-input {
     flex-grow: 1;
     background: #001100cc;
     border: 1px solid #004400cc;
@@ -276,8 +256,8 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     font-size: 16px;
     outline: none;
 }
-#coupon-input::placeholder { color: #ffffff66; }
-#apply-coupon-btn {
+#coupon-input::placeholder, #credit-code-input::placeholder { color: #ffffff66; }
+#apply-coupon-btn, #redeem-credit-btn {
     font-family: 'Bebas Neue', cursive;
     font-weight: 700;
     font-size: 16px;
@@ -289,7 +269,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     border: none;
     transition: all 0.3s ease;
 }
-#apply-coupon-btn:hover {
+#apply-coupon-btn:hover, #redeem-credit-btn:hover {
     background: #005500cc;
     box-shadow: 0 0 10px #00ff0088;
 }
@@ -319,8 +299,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     color: #00ff00cc;
     text-shadow: 0 0 8px #00ff0088;
 }
-
-
 #checkout-btn {
   width: 100%;
   margin-top: 20px;
@@ -345,8 +323,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     box-shadow: none;
     transform: none;
 }
-
-/* --- ESTILOS PARA NOTIFICAÇÃO (TOAST) MELHORADA --- */
 #toast-notification {
     position: fixed;
     bottom: 20px;
@@ -391,31 +367,34 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     padding: 2px 6px;
     border-radius: 5px;
 }
-/* --- FIM DOS ESTILOS DE NOTIFICAÇÃO --- */
-
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-/* Correção para Celular */
 @media (max-width: 720px) {
   .container { margin-left: 10px; margin-right: 10px; }
   .subscription-item { flex-direction: column; align-items: stretch; }
   .add-to-cart-btn { margin-top: 10px; }
-  #toast-notification {
+  #toast-notification, #referral-box {
       left: 10px;
       right: 10px;
       width: auto;
+  }
+  #referral-box {
+      flex-direction: column;
+      text-align: center;
+  }
+  #referral-box .fas {
+      margin-right: 0;
+      margin-bottom: 15px;
   }
 }
 </style>
 </head>
 <body>
 <div id="particles-js" aria-hidden="true"></div>
-
 <div id="toast-notification" class="hidden">
     <i class="fas fa-gift toast-icon"></i>
     <div class="toast-content">
         <div class="toast-sender">ADM Marcos Santos</div>
-        <div class="toast-message">Enviou um cupom para você: <strong>BRABO10</strong></div>
+        <div class="toast-message">Cupom de lançamento <strong>BRABO10</strong>! Válido por tempo limitado.</div>
     </div>
 </div>
 
@@ -451,22 +430,20 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     <button class="modal-close" onclick="toggleCartModal()">×</button>
     <h2 class="section-title">Seu Carrinho de Agendamento</h2>
     <div id="cart-items-list"></div>
-
     <div id="cart-summary">
         <div class="coupon-area">
             <input type="text" id="coupon-input" placeholder="Cupom de desconto" autocomplete="off">
             <button id="apply-coupon-btn" onclick="applyCoupon()">Aplicar</button>
         </div>
         <div id="coupon-feedback"></div>
-
         <div id="cart-total">
           Subtotal: <span id="cart-subtotal-price">R$ 0,00</span><br>
-          Desconto: <span id="cart-discount-price">R$ 0,00</span>
+          <span id="balance-used-row">Saldo Utilizado: <span id="cart-balance-price">R$ 0,00</span><br></span>
+          Desconto (Cupom): <span id="cart-discount-price">R$ 0,00</span>
           <hr>
           Total: <span id="cart-total-price" class="final-price">R$ 0,00</span>
         </div>
     </div>
-    
     <button id="checkout-btn" onclick="checkout()">Finalizar via WhatsApp</button>
   </div>
 </div>
@@ -485,16 +462,12 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     <h1>DH BRABO STREAMING</h1>
     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" alt="Selo de Verificado" class="verificado-badge-img" title="Verificado">
   </header>
-
   <input type="search" id="searchInput" placeholder="Pesquisar assinaturas..." oninput="buscarItens(this.value)" autocomplete="off" aria-label="Pesquisar"/>
-  
   <div id="main-countdown-timer"></div>
-
   <section class="subscriptions" aria-label="Loja de assinaturas">
     <h2 class="section-title">Agende sua Assinatura</h2>
     <div id="subscriptionsList" aria-live="polite" aria-atomic="true"></div>
   </section>
-
   <section class="faq" aria-label="Perguntas Frequentes">
       <h2 class="section-title">Perguntas Frequentes</h2>
       <details>
@@ -520,6 +493,26 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       </details>
   </section>
 
+  <section class="faq" aria-label="Programa de Indicação">
+    <h2 class="section-title">Indique um Amigo e Ganhe!</h2>
+    <div id="referral-box" style="background: rgba(0, 30, 0, 0.3); border-radius: 10px; padding: 25px; border: 1px solid #004400cc;">
+        <div style="display: flex; align-items: center; text-align: left;">
+            <i class="fas fa-users" style="font-size: 40px; color: #00ff00; margin-right: 25px; text-shadow: 0 0 10px #00ff0088;"></i>
+            <div>
+                <h3 style="font-size: 24px; margin-bottom: 10px;">Ganhe R$ 5,00 de Desconto!</h3>
+                <p style="font-size: 16px; color: #ccffccbb; line-height: 1.5; font-family: sans-serif;">
+                Gostou do nosso serviço? Indique para um amigo! Quando ele fizer a primeira compra e mencionar você, te enviaremos um <strong>código de crédito</strong> no WhatsApp.
+                </p>
+            </div>
+        </div>
+        <div class="credit-area" style="margin-top: 20px;">
+            <input type="text" id="credit-code-input" placeholder="Insira seu código de crédito aqui">
+            <button id="redeem-credit-btn" onclick="redeemCreditCode()">Resgatar</button>
+        </div>
+        <div id="balance-display" style="font-family: sans-serif; font-size: 18px; color: #00ff00; text-align: center; margin-top: 15px; text-shadow: 0 0 8px #00ff0088;">Seu saldo: R$ 0,00</div>
+    </div>
+  </section>
+
   <footer>
     <p>&copy; 2025 DH BRABO GAMER. Todos os direitos reservados.</p>
   </footer>
@@ -535,13 +528,10 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       { id: 'sub3', tipo: 'assinatura', nome: "Youcine", preco: "13,00", icone: "https://i.ibb.co/whkcVZFF/channels4-profile.jpg", detalhes: { 'Qualidade': '4K Ultra HD', 'Telas': 'Múltiplas telas', 'Tipo': 'Conta Privada' } },
       { id: 'sub4', tipo: 'assinatura', nome: "Amazon Prime", preco: "9,90", icone: "https://i.ibb.co/rR4BgfRP/images.jpg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } }
   ];
-
-  const coupons = {
-      'BRABO10': { type: 'percentage', value: 0.10 }
-  };
+  const coupons = { 'BRABO10': { type: 'percentage', value: 0.10 } };
   let appliedCoupon = null;
   let cart = [];
-
+  
   const itemModal = document.getElementById('itemModal');
   const modalTitle = document.getElementById('modal-title');
   const modalBody = document.getElementById('modal-body');
@@ -552,10 +542,48 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   const cartItemsList = document.getElementById('cart-items-list');
   const cartSubtotalPrice = document.getElementById('cart-subtotal-price');
   const cartDiscountPrice = document.getElementById('cart-discount-price');
-  const cartTotalPrice = document.getElementById('cart-total-price');
   const couponFeedback = document.getElementById('coupon-feedback');
   const termsModal = document.getElementById('terms-modal');
   const acceptTermsBtn = document.getElementById('accept-terms-btn');
+  const balanceDisplay = document.getElementById('balance-display');
+  const cartBalancePrice = document.getElementById('cart-balance-price');
+  const balanceUsedRow = document.getElementById('balance-used-row');
+
+  // --- NOVAS FUNÇÕES DE SALDO ---
+  function initializeBalance() {
+    let balance = parseFloat(localStorage.getItem('userBalance')) || 0;
+    localStorage.setItem('userBalance', balance.toFixed(2));
+    updateBalanceDisplay();
+  }
+
+  function updateBalanceDisplay() {
+    let balance = parseFloat(localStorage.getItem('userBalance')) || 0;
+    if (balanceDisplay) {
+        balanceDisplay.textContent = `Seu saldo: R$ ${balance.toFixed(2).replace('.', ',')}`;
+    }
+  }
+
+  function redeemCreditCode() {
+    const input = document.getElementById('credit-code-input');
+    const code = input.value.trim().toUpperCase();
+    
+    // Lógica simples de validação: checa se o código começa com 'ADD5-' e se já não foi usado.
+    if (code.startsWith('ADD5-') && !localStorage.getItem(code)) {
+        let balance = parseFloat(localStorage.getItem('userBalance')) || 0;
+        balance += 5.00;
+        localStorage.setItem('userBalance', balance.toFixed(2));
+        
+        // Marca o código como usado para não ser resgatado de novo.
+        localStorage.setItem(code, 'true');
+
+        updateBalanceDisplay();
+        alert('Crédito de R$ 5,00 resgatado com sucesso!');
+        input.value = '';
+    } else {
+        alert('Código de crédito inválido ou já utilizado.');
+    }
+  }
+
 
   function addToCart(subId) {
     const isAlreadyInCart = cart.find(item => item.id === subId);
@@ -590,21 +618,19 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
             couponFeedback.textContent = 'Adicione itens ao carrinho primeiro.';
             return;
         }
-        
         appliedCoupon = { code: code, ...coupons[code] };
         couponFeedback.style.color = '#00ff00cc';
         couponFeedback.textContent = 'Cupom aplicado com sucesso!';
-        
     } else {
         appliedCoupon = null;
         couponFeedback.style.color = '#ff4444';
         couponFeedback.textContent = 'Cupom inválido ou já utilizado.';
     }
-    
     input.value = '';
     updateCartUI();
   }
 
+  // --- FUNÇÃO DO CARRINHO MODIFICADA PARA USAR O SALDO ---
   function updateCartUI() {
     if (cart.length > 0) {
       cartCount.textContent = cart.length;
@@ -620,39 +646,37 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     } else {
         cart.forEach(item => {
         const itemHTML = `
-            <div class="cart-item">
-            <div class="cart-item-info">
-                <div class="cart-item-name">${item.nome}</div>
-                <div class="cart-item-price">R$ ${item.preco}</div>
-            </div>
-            <button class="remove-from-cart-btn" onclick="removeFromCart(${item.cartItemId})" title="Remover item">×</button>
-            </div>
-        `;
+            <div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">${item.nome}</div><div class="cart-item-price">R$ ${item.preco}</div></div><button class="remove-from-cart-btn" onclick="removeFromCart(${item.cartItemId})" title="Remover item">×</button></div>`;
         cartItemsList.innerHTML += itemHTML;
         });
     }
 
     const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
-    let discount = 0;
+    let couponDiscount = 0;
 
     if (appliedCoupon && subtotal > 0) {
         if (appliedCoupon.type === 'percentage') {
-            discount = subtotal * appliedCoupon.value;
+            couponDiscount = subtotal * appliedCoupon.value;
         }
-        if (discount > subtotal) discount = subtotal;
+    }
+
+    let remainingTotal = subtotal - couponDiscount;
+    let availableBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
+    let balanceUsed = 0;
+
+    if (availableBalance > 0 && remainingTotal > 0) {
+        balanceUsed = Math.min(remainingTotal, availableBalance);
+        balanceUsedRow.style.display = 'block';
     } else {
-        appliedCoupon = null;
+        balanceUsedRow.style.display = 'none';
     }
     
-    if(!appliedCoupon && couponFeedback.style.color !== 'rgb(255, 68, 68)') {
-        couponFeedback.textContent = '';
-    }
-
-    const total = subtotal - discount;
-
+    const total = remainingTotal - balanceUsed;
+    
     cartSubtotalPrice.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-    cartDiscountPrice.textContent = `- R$ ${discount.toFixed(2).replace('.', ',')}`;
-    cartTotalPrice.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    cartBalancePrice.textContent = `- R$ ${balanceUsed.toFixed(2).replace('.', ',')}`;
+    cartDiscountPrice.textContent = `- R$ ${couponDiscount.toFixed(2).replace('.', ',')}`;
+    document.getElementById('cart-total-price').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
   }
   
   function updateAddToCartButtons() {
@@ -669,10 +693,25 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     });
   }
   
+  // --- FUNÇÃO DE CHECKOUT MODIFICADA PARA ATUALIZAR O SALDO ---
   function checkout() {
     if (cart.length === 0) {
         alert("Seu carrinho está vazio!");
         return;
+    }
+
+    // Calcula de novo quanto saldo foi usado para garantir
+    const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
+    let couponDiscount = (appliedCoupon) ? subtotal * appliedCoupon.value : 0;
+    let remainingTotal = subtotal - couponDiscount;
+    let availableBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
+    let balanceUsed = Math.min(remainingTotal, availableBalance);
+    
+    // Atualiza o saldo no localStorage
+    if (balanceUsed > 0) {
+        let newBalance = availableBalance - balanceUsed;
+        localStorage.setItem('userBalance', newBalance.toFixed(2));
+        updateBalanceDisplay(); // Atualiza a exibição na página principal
     }
 
     if (appliedCoupon && appliedCoupon.code === 'BRABO10') {
@@ -680,33 +719,16 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     }
 
     let mensagem = "Olá! Tenho interesse em finalizar meu agendamento com as seguintes assinaturas:\n\n";
-    
-    const itemCounts = cart.reduce((acc, item) => {
-        acc[item.nome] = (acc[item.nome] || 0) + 1;
-        return acc;
-    }, {});
+    cart.forEach(item => { mensagem += `- ${item.nome} (R$ ${item.preco})\n`; });
 
-    Object.keys(itemCounts).forEach(itemName => {
-        const item = assinaturas.find(sub => sub.nome === itemName);
-        const count = itemCounts[itemName];
-        mensagem += `- ${count}x ${item.nome} (R$ ${item.preco} cada)\n`;
-    });
-
-    const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
-    let discount = 0;
-    
     mensagem += `\n*Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}*`;
-
-    if (appliedCoupon && subtotal > 0) {
-        if (appliedCoupon.type === 'percentage') {
-            discount = subtotal * appliedCoupon.value;
-        }
-        if (discount > subtotal) discount = subtotal;
-        
-        mensagem += `\n*Desconto (${appliedCoupon.code}): - R$ ${discount.toFixed(2).replace('.', ',')}*`;
+    if (balanceUsed > 0) {
+        mensagem += `\n*Saldo Utilizado: -R$ ${balanceUsed.toFixed(2).replace('.', ',')}*`;
     }
-
-    const total = subtotal - discount;
+    if (couponDiscount > 0) {
+        mensagem += `\n*Desconto (Cupom): -R$ ${couponDiscount.toFixed(2).replace('.', ',')}*`;
+    }
+    const total = subtotal - couponDiscount - balanceUsed;
     mensagem += `\n\n*Total a pagar: R$ ${total.toFixed(2).replace('.', ',')}*`;
 
     const whatsappLink = `https://wa.me/5581991822689?text=${encodeURIComponent(mensagem)}`;
@@ -717,31 +739,18 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     const isOpen = cartModal.style.display === 'flex';
     cartModal.style.display = isOpen ? 'none' : 'flex';
     document.body.classList.toggle('modal-open', !isOpen);
-    if (!isOpen) {
-        updateCartUI();
-    }
+    if (!isOpen) { updateCartUI(); }
   }
   
   function openModal(itemId) {
       const item = assinaturas.find(i => i.id === itemId);
       if (!item) return;
       modalTitle.textContent = item.nome;
-      let detailsHTML = `<p>${`Assinatura mensal por R$ ${item.preco}`}</p><hr style="border-color:#004400cc; margin:10px 0;">`;
-      for (const [key, value] of Object.entries(item.detalhes)) {
-          detailsHTML += `<p><strong>${key}:</strong> ${value}</p>`;
-      }
-      if (item.detalhes && item.detalhes.Tipo === 'Conta compartilhada') {
-          const regrasHTML = `
-              <hr style="border-color:#004400cc; margin:15px 0;">
-              <p><strong>REGRAS DA CONTA:</strong></p>
-              <p style="font-size:13px; line-height:1.4;">
-                  1. Proibido alterar e-mail ou senha.<br>
-                  2. Proibido colocar PIN no seu perfil.<br>
-                  3. Use apenas o seu perfil.<br>
-                  <small>O descumprimento anula a garantia.</small>
-              </p>
-          `;
-          detailsHTML += regrasHTML;
+      let detailsHTML = `<p>Assinatura mensal por R$ ${item.preco}</p><hr style="border-color:#004400cc; margin:10px 0;">`;
+      for (const [key, value] of Object.entries(item.detalhes)) { detailsHTML += `<p><strong>${key}:</strong> ${value}</p>`; }
+      detailsHTML += `<p style="margin-top:15px; color: #ffc107; text-shadow: 0 0 8px #ffc10788; font-family: sans-serif; font-weight: bold;">VAGAS LIMITADAS! Garanta a sua antes que esgote.</p>`;
+      if (item.detalhes && item.detalhes.Tipo === 'Contas compartilhadas') {
+          detailsHTML += `<hr style="border-color:#004400cc; margin:15px 0;"><p><strong>REGRAS DA CONTA:</strong></p><p style="font-size:13px; line-height:1.4;">1. Proibido alterar e-mail ou senha.<br>2. Proibido colocar PIN no seu perfil.<br>3. Use apenas o seu perfil.<br><small>O descumprimento anula a garantia.</small></p>`;
       }
       modalBody.innerHTML = detailsHTML;
       itemModal.style.display = 'flex';
@@ -755,21 +764,9 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   
   function mostrarAssinaturas(lista) {
       subsList.innerHTML = "";
-      if (lista.length === 0) {
-          subsList.innerHTML = "<p style='text-align:center;'>Nenhuma assinatura encontrada com esse termo.</p>";
-      }
+      if (lista.length === 0) { subsList.innerHTML = "<p style='text-align:center;'>Nenhuma assinatura encontrada com esse termo.</p>"; }
       lista.forEach((sub, i) => {
-          const subHTML = `
-                <article class="subscription-item" style="--delay:${i * 0.1}s">
-                    <div class="sub-info" onclick="openModal('${sub.id}')">
-                      <img src="${sub.icone}" alt="Logo ${sub.nome}" class="sub-logo" loading="lazy"/>
-                      <div style="margin-left: 15px;">
-                        <h3>${sub.nome}</h3>
-                        <p>Assinatura mensal - R$ ${sub.preco}</p>
-                      </div>
-                    </div>
-                    <button class="add-to-cart-btn" data-sub-id="${sub.id}" onclick="addToCart('${sub.id}')">Agendar</button>
-                </article>`;
+          const subHTML = `<article class="subscription-item" style="--delay:${i * 0.1}s"><div class="sub-info" onclick="openModal('${sub.id}')"><img src="${sub.icone}" alt="Logo ${sub.nome}" class="sub-logo" loading="lazy"/><div style="margin-left: 15px;"><h3>${sub.nome}</h3><p>Assinatura mensal - R$ ${sub.preco}</p></div></div><button class="add-to-cart-btn" data-sub-id="${sub.id}" onclick="addToCart('${sub.id}')">Agendar</button></article>`;
           subsList.insertAdjacentHTML("beforeend", subHTML);
       });
       updateAddToCartButtons();
@@ -785,11 +782,9 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     const checkoutBtn = document.getElementById('checkout-btn');
     const mainCountdownDisplay = document.getElementById('main-countdown-timer');
     const targetDate = new Date('2025-06-21T00:00:00').getTime();
-
     const countdownInterval = setInterval(() => {
         const now = new Date().getTime();
         const distance = targetDate - now;
-
         if (distance <= 0) {
             clearInterval(countdownInterval);
             mainCountdownDisplay.style.display = 'none';
@@ -800,7 +795,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
             const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distance % (1000 * 60)) / 1000);
-
             mainCountdownDisplay.innerHTML = `<span>Lançamento da loja em:</span> ${d}d ${h}h ${m}m ${s}s`;
             checkoutBtn.disabled = true;
             checkoutBtn.textContent = `Libera em ${new Date(targetDate).toLocaleDateString()}`;
@@ -811,27 +805,20 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   document.addEventListener('DOMContentLoaded', function() {
       const toast = document.getElementById('toast-notification');
       if (toast) {
-          setTimeout(() => {
-              toast.classList.remove('hidden');
-          }, 2000);
-          setTimeout(() => {
-              toast.classList.add('hidden');
-          }, 10000);
+          setTimeout(() => { toast.classList.remove('hidden'); }, 2000);
+          setTimeout(() => { toast.classList.add('hidden'); }, 10000);
       }
-
       if (!localStorage.getItem('termsAccepted')) {
           termsModal.style.display = 'flex';
           document.body.classList.add('modal-open');
       }
-
+      initializeBalance(); // Inicia e exibe o saldo do usuário
       mostrarAssinaturas(assinaturas);
       initializeLaunchCountdown();
-
       particlesJS("particles-js", {
           particles: { number: { value: 150, density: { enable: true, value_area: 700 } }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.35, anim: { enable: true, speed: 1.2, opacity_min: 0.15, sync: false } }, size: { value: 3, random: true, anim: { enable: true, speed: 4, size_min: 1, sync: false } }, line_linked: { enable: true, distance: 120, color: "#00ff00", opacity: 0.18, width: 1 }, move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: false, mode: "" }, onclick: { enable: false, mode: "" }, resize: true } }, retina_detect: true 
       });
   });
-
   acceptTermsBtn.addEventListener('click', () => {
       termsModal.style.display = 'none';
       localStorage.setItem('termsAccepted', 'true');
