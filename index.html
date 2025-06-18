@@ -9,6 +9,7 @@
 <meta name="author" content="DH BRABO GAMER" />
 <meta name="theme-color" content="#000000" />
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
 /* Reset e Estilos Base */
@@ -33,12 +34,11 @@ h1 { font-size: 40px; color: #aaffaa; text-shadow: 0 0 5px #0f0, 0 0 12px #00ff0
   width: 22px;
   height: 22px;
 }
-/* --- Barra de Pesquisa com Lupa --- */
 input[type="search"] {
   width: 100%;
   max-width: 450px;
   font-size: 18px;
-  padding: 14px 18px 14px 50px; /* Padding esquerdo para o ícone */
+  padding: 14px 18px 14px 50px;
   margin-bottom: 25px;
   border-radius: 12px;
   border: none;
@@ -46,7 +46,6 @@ input[type="search"] {
   color: #00ff00cc;
   box-shadow: inset 0 0 10px #00ff0040, 0 0 15px #00ff0040;
   outline: none;
-  /* Ícone de Lupa */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff0099'%3E%3Cpath d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: left 15px center;
@@ -54,21 +53,61 @@ input[type="search"] {
 }
 input[type="search"]::placeholder { color: #ffffff66; }
 input[type="search"]:focus { box-shadow: inset 0 0 20px #00b7ffe5, 0 0 25px #00ff00cc; }
-.aviso-jogos { text-align: center; margin-top: -15px; margin-bottom: 30px; color: #aaffaa; font-size: 16px; text-shadow: 0 0 8px #00ff0055; user-select: none; }
+
+/* NOVO: Estilo para o Contador Principal */
+#main-countdown-timer {
+  text-align: center;
+  margin: -10px 0 25px 0;
+  font-size: 22px;
+  color: #ffc107;
+  text-shadow: 0 0 8px #ffc10788;
+}
+#main-countdown-timer span {
+  font-size: 16px;
+  color: #ffffffaa;
+  display: block;
+}
 
 /* Assinaturas */
 .section-title { color:rgba(21, 255, 0, 0.356); margin-bottom:15px; user-select:none; text-shadow: 0 0 10px #00ff00; }
 .subscriptions, .faq { margin-top: 40px; padding-top: 20px; border-top: 2px solid #004400cc; }
-.subscription-item { display: flex; align-items: center; gap: 15px; background: rgba(0, 51, 0, 0.4); border-radius: 15px; padding: 12px 20px; margin-bottom: 16px; box-shadow: 0 0 15px #00ff0088; transition: background-color 0.3s ease; cursor: pointer; opacity: 0; transform: translateY(10px); animation: fadeInUp 0.6s forwards; animation-delay: var(--delay); }
+.subscription-item { display: flex; align-items: center; gap: 15px; background: rgba(0, 51, 0, 0.4); border-radius: 15px; padding: 12px 20px; margin-bottom: 16px; box-shadow: 0 0 15px #00ff0088; transition: all 0.3s ease; cursor: default; }
 .subscription-item:hover { background: rgba(0, 102, 0, 0.6); }
 .sub-logo { width: 50px; height: auto; object-fit: contain; filter: drop-shadow(0 0 3px #00ff00cc); flex-shrink: 0; }
-.sub-info { flex-grow: 1; color: #aaffaa; }
+.sub-info { display: flex; align-items: center; flex-grow: 1; color: #aaffaa; cursor: pointer;}
 h3 { font-size: 22px; margin-bottom: 5px; color: #aaffaa; text-shadow: 0 0 6px #00ff0088, 0 0 10px #00ff00bb; }
 p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
-.sub-coming-soon { font-weight: 700; font-size: 14px; color: #aaa; background: #222; padding: 8px 12px; border-radius: 25px; user-select: none; white-space: nowrap; box-shadow: 0 0 10px #555; cursor: default; min-width: 190px; text-align: center; }
-.sub-buy-whatsapp { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; font-size: 16px; color: #00ff00cc; background: #003300cc; padding: 8px 18px; border-radius: 25px; cursor: pointer; box-shadow: 0 0 10px #00ff00cc; user-select: none; text-decoration: none; transition: all 0.3s ease; }
-.sub-buy-whatsapp:hover { background: #005500cc; box-shadow: 0 0 20px #00ff00cc; transform: scale(1.05); }
-.sub-buy-whatsapp img { width: 20px; height: 20px; }
+
+.add-to-cart-btn {
+  font-family: 'Bebas Neue', cursive;
+  font-weight: 700;
+  font-size: 16px;
+  color: #00ff00cc;
+  background: #003300cc;
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ff00cc;
+  user-select: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  white-space: nowrap;
+}
+.add-to-cart-btn:hover {
+  background: #005500cc;
+  box-shadow: 0 0 20px #00ff00cc;
+  transform: scale(1.05);
+}
+.add-to-cart-btn.in-cart {
+  background: #333;
+  color: #777;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+.add-to-cart-btn .fa-check { margin-right: 5px; }
+
 
 /* FAQ */
 .faq details { background: rgba(0, 30, 0, 0.3); border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid #004400cc; }
@@ -90,30 +129,154 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
 /* Rodapé */
 footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15px; color: #005500cc; text-shadow: 0 0 8px #00ff0066; user-select: none; }
 
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-/* --- CORREÇÃO PARA CELULAR --- */
-@media (max-width: 720px) {
-  .container {
-    /* Adiciona margens laterais para impedir o corte da borda */
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  p {
-    /* Impede a quebra de linha no preço */
-    white-space: nowrap;
-  }
-  .sub-coming-soon {
-    /* Ajusta o botão para telas menores */
-    min-width: 130px;
-    font-size: 12px;
-  }
+/* Estilos do Carrinho */
+#cart-button {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  background: #001100cc;
+  border: 1px solid #00ff0040;
+  color: #00ff00cc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 0 15px #00ff0040;
+  transition: all 0.3s ease;
+}
+#cart-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #00ff0088;
+}
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+#cart-count.visible {
+  transform: scale(1);
+}
+#cart-modal .modal-content {
+  max-width: 600px;
+}
+#cart-items-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 10px;
+}
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #004400cc;
+}
+.cart-item-info {
+  color: #aaffaa;
+}
+.cart-item-name {
+  font-size: 18px;
+}
+.cart-item-price {
+  font-size: 14px;
+  color: #88cc88aa;
+}
+.remove-from-cart-btn {
+  background: none;
+  border: none;
+  color: #ff4444;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.remove-from-cart-btn:hover {
+  color: #ff8888;
+}
+#cart-total {
+  text-align: right;
+  font-size: 22px;
+  margin-top: 20px;
+  color: #aaffaa;
+}
+#cart-total-price {
+  color: #00ff00cc;
+  text-shadow: 0 0 8px #00ff0088;
+}
+#checkout-btn {
+  width: 100%;
+  margin-top: 20px;
+  background: #005500cc;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  font-size: 18px;
+  font-family: 'Bebas Neue', cursive;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#checkout-btn:hover {
+  background: #007700cc;
+  box-shadow: 0 0 15px #00ff0088;
+}
+/* NOVO: Estilo para o botão de checkout desativado */
+#checkout-btn:disabled {
+    background: #333;
+    color: #777;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
+
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Correção para Celular */
+@media (max-width: 720px) {
+  .container { margin-left: 10px; margin-right: 10px; }
+  .subscription-item { flex-direction: column; align-items: stretch; }
+  .add-to-cart-btn { margin-top: 10px; }
+}
 </style>
 </head>
 <body>
 <div id="particles-js" aria-hidden="true"></div>
+
+<div id="cart-button" onclick="toggleCartModal()">
+  <i class="fas fa-shopping-cart"></i>
+  <span id="cart-count">0</span>
+</div>
+
+<div id="cart-modal" class="modal-overlay" onclick="toggleCartModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="toggleCartModal()">×</button>
+    <h2 class="section-title">Seu Carrinho de Agendamento</h2>
+    <div id="cart-items-list"></div>
+    <div id="cart-total">
+      Total: <span id="cart-total-price">R$ 0,00</span>
+    </div>
+    <button id="checkout-btn" onclick="checkout()">Finalizar via WhatsApp</button>
+  </div>
+</div>
 
 <div id="itemModal" class="modal-overlay" onclick="closeModal()">
   <div class="modal-content" onclick="event.stopPropagation()">
@@ -132,18 +295,18 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 
   <input type="search" id="searchInput" placeholder="Pesquisar assinaturas..." oninput="buscarItens(this.value)" autocomplete="off" aria-label="Pesquisar"/>
   
-  <p class="aviso-jogos">Jogos disponíveis em breve</p>
+  <div id="main-countdown-timer"></div>
 
   <section class="subscriptions" aria-label="Loja de assinaturas">
-    <h2 class="section-title">Assinaturas Disponíveis</h2>
+    <h2 class="section-title">Agende sua Assinatura</h2>
     <div id="subscriptionsList" aria-live="polite" aria-atomic="true"></div>
   </section>
 
   <section class="faq" aria-label="Perguntas Frequentes">
       <h2 class="section-title">Perguntas Frequentes</h2>
       <details>
-          <summary>Como funciona a assinatura?</summary>
-          <p>Após a confirmação do pagamento via WhatsApp, você receberá os dados de acesso (login e senha) para a plataforma escolhida. O acesso é válido por 30 dias.</p>
+          <summary>Como funciona o agendamento?</summary>
+          <p>Você já pode escolher suas assinaturas e adicioná-las ao carrinho para garantir seu lugar. No dia do lançamento (21/06), o botão para finalizar a compra será liberado e você poderá concluir seu pedido via WhatsApp.</p>
       </details>
       <details>
           <summary>É seguro? Qual a garantia?</summary>
@@ -151,7 +314,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       </details>
       <details>
           <summary>Quais são as formas de pagamento?</summary>
-          <p>No momento, aceitamos pagamentos via PIX. A chave será informada durante o atendimento no WhatsApp.</p>
+          <p>No momento, aceitamos pagamentos via PIX. A chave será informada durante o atendimento no WhatsApp no dia do lançamento.</p>
       </details>
       <details>
           <summary>Quais são as regras das contas compartilhadas?</summary>
@@ -178,20 +341,101 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       { id: 'sub4', tipo: 'assinatura', nome: "Amazon Prime", preco: "9,90", icone: "https://i.ibb.co/rR4BgfRP/images.jpg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } }
   ];
 
-  const modal = document.getElementById('itemModal');
+  let cart = [];
+
+  const itemModal = document.getElementById('itemModal');
   const modalTitle = document.getElementById('modal-title');
   const modalBody = document.getElementById('modal-body');
+  const subsList = document.getElementById("subscriptionsList");
+  const cartButton = document.getElementById('cart-button');
+  const cartCount = document.getElementById('cart-count');
+  const cartModal = document.getElementById('cart-modal');
+  const cartItemsList = document.getElementById('cart-items-list');
+  const cartTotalPrice = document.getElementById('cart-total-price');
+
+  function addToCart(subId) {
+    if (cart.find(item => item.id === subId)) return;
+    const subToAdd = assinaturas.find(sub => sub.id === subId);
+    if (subToAdd) {
+      cart.push(subToAdd);
+      updateCartUI();
+      updateAddToCartButtons();
+    }
+  }
+
+  function removeFromCart(subId) {
+    cart = cart.filter(item => item.id !== subId);
+    updateCartUI();
+    updateAddToCartButtons();
+  }
+
+  function updateCartUI() {
+    if (cart.length > 0) {
+      cartCount.textContent = cart.length;
+      cartCount.classList.add('visible');
+    } else {
+      cartCount.classList.remove('visible');
+    }
+    cartItemsList.innerHTML = '';
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = '<p>Seu carrinho de agendamento está vazio.</p>';
+    } else {
+        cart.forEach(item => {
+        const itemHTML = `
+            <div class="cart-item">
+            <div class="cart-item-info">
+                <div class="cart-item-name">${item.nome}</div>
+                <div class="cart-item-price">R$ ${item.preco}</div>
+            </div>
+            <button class="remove-from-cart-btn" onclick="removeFromCart('${item.id}')" title="Remover item">×</button>
+            </div>
+        `;
+        cartItemsList.innerHTML += itemHTML;
+        });
+    }
+    const total = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
+    cartTotalPrice.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+  }
+  
+  function updateAddToCartButtons() {
+    const allBtns = document.querySelectorAll('.add-to-cart-btn');
+    allBtns.forEach(btn => {
+        const subId = btn.dataset.subId;
+        if (cart.find(item => item.id === subId)) {
+            btn.innerHTML = `<i class="fas fa-check"></i> Agendado`;
+            btn.classList.add('in-cart');
+            btn.disabled = true;
+        }
+    });
+  }
+
+  function toggleCartModal() {
+    cartModal.style.display = cartModal.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+    let mensagem = "Olá! Tenho interesse em finalizar meu agendamento com as seguintes assinaturas:\n\n";
+    cart.forEach(item => {
+        mensagem += `- ${item.nome} (R$ ${item.preco})\n`;
+    });
+    const total = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
+    mensagem += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
+    const whatsappLink = `https://wa.me/5581991822689?text=${encodeURIComponent(mensagem)}`;
+    window.open(whatsappLink, '_blank');
+  }
 
   function openModal(itemId) {
       const item = assinaturas.find(i => i.id === itemId);
       if (!item) return;
-
       modalTitle.textContent = item.nome;
       let detailsHTML = `<p>${`Assinatura mensal por R$ ${item.preco}`}</p><hr style="border-color:#004400cc; margin:10px 0;">`;
       for (const [key, value] of Object.entries(item.detalhes)) {
           detailsHTML += `<p><strong>${key}:</strong> ${value}</p>`;
       }
-      
       if (item.detalhes && item.detalhes.Tipo === 'Conta compartilhada') {
           const regrasHTML = `
               <hr style="border-color:#004400cc; margin:15px 0;">
@@ -205,16 +449,13 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
           `;
           detailsHTML += regrasHTML;
       }
-
       modalBody.innerHTML = detailsHTML;
-      modal.style.display = 'flex';
+      itemModal.style.display = 'flex';
   }
 
   function closeModal() {
-      modal.style.display = 'none';
+      itemModal.style.display = 'none';
   }
-
-  const subsList = document.getElementById("subscriptionsList");
   
   function mostrarAssinaturas(lista) {
       subsList.innerHTML = "";
@@ -223,70 +464,58 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       }
       lista.forEach((sub, i) => {
           const subHTML = `
-              <article class="subscription-item" style="--delay:${i * 0.1}s" onclick="openModal('${sub.id}')">
-                  <img src="${sub.icone}" alt="Logo ${sub.nome}" class="sub-logo" loading="lazy"/>
-                  <div class="sub-info">
+              <article class="subscription-item" style="--delay:${i * 0.1}s">
+                  <div class="sub-info" onclick="openModal('${sub.id}')">
+                    <img src="${sub.icone}" alt="Logo ${sub.nome}" class="sub-logo" loading="lazy"/>
+                    <div style="margin-left: 15px;">
                       <h3>${sub.nome}</h3>
                       <p>Assinatura mensal - R$ ${sub.preco}</p>
+                    </div>
                   </div>
-                  <div class="sub-coming-soon" data-sub-id="${sub.id}">Calculando tempo...</div>
+                  <button class="add-to-cart-btn" data-sub-id="${sub.id}" onclick="addToCart('${sub.id}')">Agendar</button>
               </article>`;
           subsList.insertAdjacentHTML("beforeend", subHTML);
       });
+      updateAddToCartButtons();
   }
 
   function buscarItens(texto) {
     const filtro = texto.toLowerCase();
     const subsFiltradas = assinaturas.filter(s => s.nome.toLowerCase().includes(filtro));
-    
     mostrarAssinaturas(subsFiltradas);
-
-    if (filtro === "") {
-      mostrarAssinaturas(assinaturas);
-    }
-    
-    iniciarContador();
   }
+  
+  // NOVO: LÓGICA DO CONTADOR PRINCIPAL
+  function initializeLaunchCountdown() {
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const mainCountdownDisplay = document.getElementById('main-countdown-timer');
+    const targetDate = new Date('2025-06-21T00:00:00').getTime();
 
-  let countdownInterval;
-  function iniciarContador() {
-      clearInterval(countdownInterval);
-      const targetDate = new Date('2025-06-21T00:00:00').getTime();
-      const countdownElements = document.querySelectorAll('.sub-coming-soon');
-      if (countdownElements.length === 0) return; 
+    const countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
 
-      const whatsappLink = `https://wa.me/5581991822689`;
-      const buyButtonHTML = `<a href="${whatsappLink}" target="_blank" class="sub-buy-whatsapp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> Comprar</a>`;
+        if (distance <= 0) {
+            clearInterval(countdownInterval);
+            mainCountdownDisplay.style.display = 'none'; // Esconde o contador
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = 'Finalizar via WhatsApp';
+        } else {
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdownInterval = setInterval(() => {
-          const now = new Date().getTime();
-          const distance = targetDate - now;
-
-          const currentCountdownElements = document.querySelectorAll('.sub-coming-soon');
-          if (currentCountdownElements.length === 0) {
-              clearInterval(countdownInterval);
-              return;
-          }
-
-          if (distance <= 0) {
-              clearInterval(countdownInterval);
-              currentCountdownElements.forEach(element => {
-                  element.outerHTML = buyButtonHTML;
-              });
-          } else {
-              const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-              const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-              const s = Math.floor((distance % (1000 * 60)) / 1000);
-              const text = `Disponível em: ${d}d ${h}h ${m}m ${s}s`;
-              currentCountdownElements.forEach(element => { element.innerHTML = text; });
-          }
-      }, 1000);
+            mainCountdownDisplay.innerHTML = `<span>Lançamento da loja em:</span> ${d}d ${h}h ${m}m ${s}s`;
+            checkoutBtn.disabled = true;
+            checkoutBtn.textContent = `Libera em ${new Date(targetDate).toLocaleDateString()}`;
+        }
+    }, 1000);
   }
   
   document.addEventListener('DOMContentLoaded', function() {
       mostrarAssinaturas(assinaturas);
-      iniciarContador();
+      initializeLaunchCountdown(); // Inicia o novo contador
 
       particlesJS("particles-js", {
           particles: { number: { value: 150, density: { enable: true, value_area: 700 } }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.35, anim: { enable: true, speed: 1.2, opacity_min: 0.15, sync: false } }, size: { value: 3, random: true, anim: { enable: true, speed: 4, size_min: 1, sync: false } }, line_linked: { enable: true, distance: 120, color: "#00ff00", opacity: 0.18, width: 1 }, move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: false, mode: "" }, onclick: { enable: false, mode: "" }, resize: true } }, retina_detect: true 
