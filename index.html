@@ -103,7 +103,7 @@ p { font-size: 14px; color: #88cc88aa; line-height: 1.3; }
   transform: scale(1.05);
 }
 .add-to-cart-btn.in-cart {
-  background: #004500cc; /* Cor um pouco diferente para indicar que já está no carrinho */
+  background: #004500cc;
   box-shadow: 0 0 15px #00ff00cc;
 }
 .add-to-cart-btn.in-cart:hover {
@@ -224,7 +224,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   max-width: 600px;
 }
 #cart-items-list {
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: auto;
   margin-bottom: 20px;
   padding-right: 10px;
@@ -257,16 +257,70 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 .remove-from-cart-btn:hover {
   color: #ff8888;
 }
+
+/* --- ESTILOS PARA CUPOM --- */
+.coupon-area {
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    gap: 10px;
+}
+#coupon-input {
+    flex-grow: 1;
+    background: #001100cc;
+    border: 1px solid #004400cc;
+    border-radius: 8px;
+    color: #aaffaa;
+    padding: 10px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+    outline: none;
+}
+#coupon-input::placeholder { color: #ffffff66; }
+#apply-coupon-btn {
+    font-family: 'Bebas Neue', cursive;
+    font-weight: 700;
+    font-size: 16px;
+    color: #00ff00cc;
+    background: #003300cc;
+    padding: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+#apply-coupon-btn:hover {
+    background: #005500cc;
+    box-shadow: 0 0 10px #00ff0088;
+}
+#coupon-feedback {
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    height: 16px;
+    margin-bottom: 10px;
+    text-align: right;
+    color: #00ff00cc;
+}
+#cart-summary hr {
+    border: 0;
+    border-top: 1px solid #00440055;
+    margin: 8px 0;
+}
 #cart-total {
-  text-align: right;
-  font-size: 22px;
-  margin-top: 20px;
-  color: #aaffaa;
+    text-align: right;
+    font-size: 18px;
+    margin-top: 10px;
+    color: #aaffaa;
+    line-height: 1.6;
 }
-#cart-total-price {
-  color: #00ff00cc;
-  text-shadow: 0 0 8px #00ff0088;
+#cart-total .final-price {
+    font-size: 24px;
+    color: #00ff00cc;
+    text-shadow: 0 0 8px #00ff0088;
 }
+
+
 #checkout-btn {
   width: 100%;
   margin-top: 20px;
@@ -338,9 +392,22 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     <button class="modal-close" onclick="toggleCartModal()">×</button>
     <h2 class="section-title">Seu Carrinho de Agendamento</h2>
     <div id="cart-items-list"></div>
-    <div id="cart-total">
-      Total: <span id="cart-total-price">R$ 0,00</span>
+
+    <div id="cart-summary">
+        <div class="coupon-area">
+            <input type="text" id="coupon-input" placeholder="Cupom de desconto" autocomplete="off">
+            <button id="apply-coupon-btn" onclick="applyCoupon()">Aplicar</button>
+        </div>
+        <div id="coupon-feedback"></div>
+
+        <div id="cart-total">
+          Subtotal: <span id="cart-subtotal-price">R$ 0,00</span><br>
+          Desconto: <span id="cart-discount-price">R$ 0,00</span>
+          <hr>
+          Total: <span id="cart-total-price" class="final-price">R$ 0,00</span>
+        </div>
     </div>
+    
     <button id="checkout-btn" onclick="checkout()">Finalizar via WhatsApp</button>
   </div>
 </div>
@@ -401,6 +468,8 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
+  // --- SCRIPT MODIFICADO ---
+
   const assinaturas = [
       { id: 'sub1', tipo: 'assinatura', nome: "Netflix", preco: "21,90", icone: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } },
       { id: 'sub2', tipo: 'assinatura', nome: "HBO Max", preco: "18,90", icone: "https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } },
@@ -408,6 +477,10 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       { id: 'sub4', tipo: 'assinatura', nome: "Amazon Prime", preco: "9,90", icone: "https://i.ibb.co/rR4BgfRP/images.jpg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } }
   ];
 
+  const coupons = {
+      'BRABO10': { type: 'percentage', value: 0.10 }
+  };
+  let appliedCoupon = null;
   let cart = [];
 
   const itemModal = document.getElementById('itemModal');
@@ -418,45 +491,63 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   const cartCount = document.getElementById('cart-count');
   const cartModal = document.getElementById('cart-modal');
   const cartItemsList = document.getElementById('cart-items-list');
+  const cartSubtotalPrice = document.getElementById('cart-subtotal-price');
+  const cartDiscountPrice = document.getElementById('cart-discount-price');
   const cartTotalPrice = document.getElementById('cart-total-price');
-  
+  const couponFeedback = document.getElementById('coupon-feedback');
   const termsModal = document.getElementById('terms-modal');
   const acceptTermsBtn = document.getElementById('accept-terms-btn');
 
-  // --- FUNÇÕES DO CARRINHO ---
-
-  // ALTERADO: Lógica para permitir adicionar itens duplicados com confirmação
   function addToCart(subId) {
     const isAlreadyInCart = cart.find(item => item.id === subId);
-
     if (isAlreadyInCart) {
-        // Se o item já existe, pergunta ao usuário se ele quer adicionar outro.
         if (!confirm("Este item já está no carrinho. Deseja adicioná-lo novamente?")) {
-            return; // Se o usuário clicar em "Cancelar", a função para aqui.
+            return;
         }
     }
-
     const subToAdd = assinaturas.find(sub => sub.id === subId);
     if (subToAdd) {
-      // Cria um novo objeto para o carrinho com um ID único
-      const newItem = {
-          ...subToAdd,
-          cartItemId: Date.now() + Math.random() // ID único para este item específico no carrinho
-      };
+      const newItem = { ...subToAdd, cartItemId: Date.now() + Math.random() };
       cart.push(newItem);
       updateCartUI();
       updateAddToCartButtons();
     }
   }
 
-  // ALTERADO: Remove o item pelo seu ID único do carrinho
   function removeFromCart(cartItemId) {
     cart = cart.filter(item => item.cartItemId !== cartItemId);
     updateCartUI();
     updateAddToCartButtons();
   }
 
-  // ALTERADO: Usa o 'cartItemId' para o botão de remoção
+  // --- FUNÇÃO DE CUPOM AJUSTADA ---
+  function applyCoupon() {
+    const input = document.getElementById('coupon-input');
+    const code = input.value.trim().toUpperCase();
+    const couponAlreadyUsed = localStorage.getItem('couponUsed_BRABO10') === 'true';
+
+    if (code === 'BRABO10' && !couponAlreadyUsed) {
+        if (cart.length === 0) {
+            couponFeedback.style.color = '#ff4444';
+            couponFeedback.textContent = 'Adicione itens ao carrinho primeiro.';
+            return;
+        }
+        
+        appliedCoupon = { code: code, ...coupons[code] };
+        couponFeedback.style.color = '#00ff00cc';
+        couponFeedback.textContent = 'Cupom aplicado com sucesso!';
+        // A linha que salvava no localStorage foi REMOVIDA daqui.
+        
+    } else {
+        appliedCoupon = null;
+        couponFeedback.style.color = '#ff4444';
+        couponFeedback.textContent = 'Cupom inválido ou já utilizado.';
+    }
+    
+    input.value = '';
+    updateCartUI();
+  }
+
   function updateCartUI() {
     if (cart.length > 0) {
       cartCount.textContent = cart.length;
@@ -464,9 +555,11 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     } else {
       cartCount.classList.remove('visible');
     }
+
     cartItemsList.innerHTML = '';
     if (cart.length === 0) {
         cartItemsList.innerHTML = '<p>Seu carrinho de agendamento está vazio.</p>';
+        appliedCoupon = null;
     } else {
         cart.forEach(item => {
         const itemHTML = `
@@ -481,11 +574,30 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         cartItemsList.innerHTML += itemHTML;
         });
     }
-    const total = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
+
+    const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
+    let discount = 0;
+
+    if (appliedCoupon && subtotal > 0) {
+        if (appliedCoupon.type === 'percentage') {
+            discount = subtotal * appliedCoupon.value;
+        }
+        if (discount > subtotal) discount = subtotal;
+    } else {
+        appliedCoupon = null;
+    }
+    
+    if(!appliedCoupon && couponFeedback.style.color !== 'rgb(255, 68, 68)') {
+        couponFeedback.textContent = '';
+    }
+
+    const total = subtotal - discount;
+
+    cartSubtotalPrice.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+    cartDiscountPrice.textContent = `- R$ ${discount.toFixed(2).replace('.', ',')}`;
     cartTotalPrice.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
   }
   
-  // ALTERADO: Botão não é mais desativado
   function updateAddToCartButtons() {
     const allBtns = document.querySelectorAll('.add-to-cart-btn');
     allBtns.forEach(btn => {
@@ -493,23 +605,27 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         if (cart.find(item => item.id === subId)) {
             btn.innerHTML = `<i class="fas fa-check"></i> Agendado`;
             btn.classList.add('in-cart');
-            // A linha 'btn.disabled = true;' foi removida para que o botão continue clicável.
-        } 
-        else {
+        } else {
             btn.innerHTML = `Agendar`;
             btn.classList.remove('in-cart');
         }
     });
   }
-
+  
+  // --- FUNÇÃO DE CHECKOUT AJUSTADA ---
   function checkout() {
     if (cart.length === 0) {
         alert("Seu carrinho está vazio!");
         return;
     }
+
+    // Se um cupom válido foi aplicado, MARCA ELE COMO USADO AGORA.
+    if (appliedCoupon && appliedCoupon.code === 'BRABO10') {
+        localStorage.setItem('couponUsed_BRABO10', 'true');
+    }
+
     let mensagem = "Olá! Tenho interesse em finalizar meu agendamento com as seguintes assinaturas:\n\n";
     
-    // Agrupa itens iguais para uma mensagem mais limpa
     const itemCounts = cart.reduce((acc, item) => {
         acc[item.nome] = (acc[item.nome] || 0) + 1;
         return acc;
@@ -521,18 +637,34 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         mensagem += `- ${count}x ${item.nome} (R$ ${item.preco} cada)\n`;
     });
 
-    const total = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
-    mensagem += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
+    const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
+    let discount = 0;
+    
+    mensagem += `\n*Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}*`;
+
+    if (appliedCoupon && subtotal > 0) {
+        if (appliedCoupon.type === 'percentage') {
+            discount = subtotal * appliedCoupon.value;
+        }
+        if (discount > subtotal) discount = subtotal;
+        
+        mensagem += `\n*Desconto (${appliedCoupon.code}): - R$ ${discount.toFixed(2).replace('.', ',')}*`;
+    }
+
+    const total = subtotal - discount;
+    mensagem += `\n\n*Total a pagar: R$ ${total.toFixed(2).replace('.', ',')}*`;
+
     const whatsappLink = `https://wa.me/5581991822689?text=${encodeURIComponent(mensagem)}`;
     window.open(whatsappLink, '_blank');
   }
-
-  // --- FUNÇÕES DE MODAL E VISUALIZAÇÃO ---
 
   function toggleCartModal() {
     const isOpen = cartModal.style.display === 'flex';
     cartModal.style.display = isOpen ? 'none' : 'flex';
     document.body.classList.toggle('modal-open', !isOpen);
+    if (!isOpen) {
+        updateCartUI();
+    }
   }
   
   function openModal(itemId) {
@@ -573,16 +705,16 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       }
       lista.forEach((sub, i) => {
           const subHTML = `
-              <article class="subscription-item" style="--delay:${i * 0.1}s">
-                  <div class="sub-info" onclick="openModal('${sub.id}')">
-                    <img src="${sub.icone}" alt="Logo ${sub.nome}" class="sub-logo" loading="lazy"/>
-                    <div style="margin-left: 15px;">
-                      <h3>${sub.nome}</h3>
-                      <p>Assinatura mensal - R$ ${sub.preco}</p>
+                <article class="subscription-item" style="--delay:${i * 0.1}s">
+                    <div class="sub-info" onclick="openModal('${sub.id}')">
+                      <img src="${sub.icone}" alt="Logo ${sub.nome}" class="sub-logo" loading="lazy"/>
+                      <div style="margin-left: 15px;">
+                        <h3>${sub.nome}</h3>
+                        <p>Assinatura mensal - R$ ${sub.preco}</p>
+                      </div>
                     </div>
-                  </div>
-                  <button class="add-to-cart-btn" data-sub-id="${sub.id}" onclick="addToCart('${sub.id}')">Agendar</button>
-              </article>`;
+                    <button class="add-to-cart-btn" data-sub-id="${sub.id}" onclick="addToCart('${sub.id}')">Agendar</button>
+                </article>`;
           subsList.insertAdjacentHTML("beforeend", subHTML);
       });
       updateAddToCartButtons();
@@ -621,8 +753,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     }, 1000);
   }
   
-  // --- EVENTOS PRINCIPAIS ---
-
   document.addEventListener('DOMContentLoaded', function() {
       if (!localStorage.getItem('termsAccepted')) {
           termsModal.style.display = 'flex';
@@ -642,7 +772,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       localStorage.setItem('termsAccepted', 'true');
       document.body.classList.remove('modal-open');
   });
-
 </script>
 </body>
 </html>
