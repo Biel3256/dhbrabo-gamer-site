@@ -499,9 +499,9 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         <div style="display: flex; align-items: center; text-align: left;">
             <i class="fas fa-users" style="font-size: 40px; color: #00ff00; margin-right: 25px; text-shadow: 0 0 10px #00ff0088;"></i>
             <div>
-                <h3 style="font-size: 24px; margin-bottom: 10px;">Ganhe R$ 5,00 de Desconto!</h3>
+                <h3 style="font-size: 24px; margin-bottom: 10px;">Ganhe R$ 5,00 de Saldo!</h3>
                 <p style="font-size: 16px; color: #ccffccbb; line-height: 1.5; font-family: sans-serif;">
-                Gostou do nosso serviço? Indique para um amigo! Quando ele fizer a primeira compra e mencionar você, te enviaremos um <strong>código de crédito</strong> no WhatsApp.
+                Gostou do nosso serviço? Indique para um amigo! Quando ele fizer a primeira compra e mencionar você, te enviaremos um <strong>código de crédito</strong> no WhatsApp para você resgatar seu saldo aqui.
                 </p>
             </div>
         </div>
@@ -520,7 +520,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-  // --- SCRIPT PRINCIPAL ---
+  // --- SCRIPT PRINCIPAL COM NOVA LÓGICA DE VALIDAÇÃO ---
 
   const assinaturas = [
       { id: 'sub1', tipo: 'assinatura', nome: "Netflix", preco: "21,90", icone: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } },
@@ -529,6 +529,15 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
       { id: 'sub4', tipo: 'assinatura', nome: "Amazon Prime", preco: "9,90", icone: "https://i.ibb.co/rR4BgfRP/images.jpg", detalhes: { 'Qualidade': 'Full HD (1080p)', 'Telas': '1 tela por vez', 'Tipo': 'Conta compartilhada' } }
   ];
   const coupons = { 'BRABO10': { type: 'percentage', value: 0.10 } };
+  
+  // --- NOVA LISTA SECRETA DE CÓDIGOS DE CRÉDITO ---
+  const validCreditCodes = [
+    '8B4F2K', 'R9G3J7', 'C1P6H5', 'X7V2M9', 'T4E8N1', 'L6S3D', 'Q2Z9W4', 'Y5F1K8', 
+    'G7J6T2', 'V3N5P9', 'A8C2L6', 'M1H7S4', 'D6K9R3', 'W4T8X1', 'Z5B2N7', 'F9J3C5',
+    'P7G6K', 'S2R4M9', 'U8V1H4', 'E6L5T7', 'K3W8Q2', 'N9X4Z1', 'H5D7B3', 'J1M6C8',
+    'B4R9G5', 'G2P3S7', 'T9F1V4', 'Y8C6H2', 'L5K8W3', 'Q4N7X9'
+  ];
+
   let appliedCoupon = null;
   let cart = [];
   
@@ -549,7 +558,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
   const cartBalancePrice = document.getElementById('cart-balance-price');
   const balanceUsedRow = document.getElementById('balance-used-row');
 
-  // --- NOVAS FUNÇÕES DE SALDO ---
+  // --- FUNÇÕES DE SALDO COM VALIDAÇÃO SEGURA ---
   function initializeBalance() {
     let balance = parseFloat(localStorage.getItem('userBalance')) || 0;
     localStorage.setItem('userBalance', balance.toFixed(2));
@@ -567,14 +576,15 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     const input = document.getElementById('credit-code-input');
     const code = input.value.trim().toUpperCase();
     
-    // Lógica simples de validação: checa se o código começa com 'ADD5-' e se já não foi usado.
-    if (code.startsWith('ADD5-') && !localStorage.getItem(code)) {
+    // Nova Lógica de Validação
+    const isCodeValid = validCreditCodes.includes(code);
+    const isCodeUsed = localStorage.getItem('used_credit_' + code) === 'true';
+
+    if (isCodeValid && !isCodeUsed) {
         let balance = parseFloat(localStorage.getItem('userBalance')) || 0;
         balance += 5.00;
         localStorage.setItem('userBalance', balance.toFixed(2));
-        
-        // Marca o código como usado para não ser resgatado de novo.
-        localStorage.setItem(code, 'true');
+        localStorage.setItem('used_credit_' + code, 'true'); // Marca o código como usado
 
         updateBalanceDisplay();
         alert('Crédito de R$ 5,00 resgatado com sucesso!');
@@ -584,13 +594,10 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     }
   }
 
-
   function addToCart(subId) {
     const isAlreadyInCart = cart.find(item => item.id === subId);
     if (isAlreadyInCart) {
-        if (!confirm("Este item já está no carrinho. Deseja adicioná-lo novamente?")) {
-            return;
-        }
+        if (!confirm("Este item já está no carrinho. Deseja adicioná-lo novamente?")) { return; }
     }
     const subToAdd = assinaturas.find(sub => sub.id === subId);
     if (subToAdd) {
@@ -630,7 +637,6 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     updateCartUI();
   }
 
-  // --- FUNÇÃO DO CARRINHO MODIFICADA PARA USAR O SALDO ---
   function updateCartUI() {
     if (cart.length > 0) {
       cartCount.textContent = cart.length;
@@ -645,8 +651,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
         appliedCoupon = null;
     } else {
         cart.forEach(item => {
-        const itemHTML = `
-            <div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">${item.nome}</div><div class="cart-item-price">R$ ${item.preco}</div></div><button class="remove-from-cart-btn" onclick="removeFromCart(${item.cartItemId})" title="Remover item">×</button></div>`;
+        const itemHTML = `<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">${item.nome}</div><div class="cart-item-price">R$ ${item.preco}</div></div><button class="remove-from-cart-btn" onclick="removeFromCart(${item.cartItemId})" title="Remover item">×</button></div>`;
         cartItemsList.innerHTML += itemHTML;
         });
     }
@@ -693,25 +698,22 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
     });
   }
   
-  // --- FUNÇÃO DE CHECKOUT MODIFICADA PARA ATUALIZAR O SALDO ---
   function checkout() {
     if (cart.length === 0) {
         alert("Seu carrinho está vazio!");
         return;
     }
 
-    // Calcula de novo quanto saldo foi usado para garantir
     const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.preco.replace(',', '.')), 0);
     let couponDiscount = (appliedCoupon) ? subtotal * appliedCoupon.value : 0;
     let remainingTotal = subtotal - couponDiscount;
     let availableBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
     let balanceUsed = Math.min(remainingTotal, availableBalance);
     
-    // Atualiza o saldo no localStorage
     if (balanceUsed > 0) {
         let newBalance = availableBalance - balanceUsed;
         localStorage.setItem('userBalance', newBalance.toFixed(2));
-        updateBalanceDisplay(); // Atualiza a exibição na página principal
+        updateBalanceDisplay();
     }
 
     if (appliedCoupon && appliedCoupon.code === 'BRABO10') {
@@ -812,7 +814,7 @@ footer { margin-top: 35px; padding-top: 20px; text-align: center; font-size: 15p
           termsModal.style.display = 'flex';
           document.body.classList.add('modal-open');
       }
-      initializeBalance(); // Inicia e exibe o saldo do usuário
+      initializeBalance();
       mostrarAssinaturas(assinaturas);
       initializeLaunchCountdown();
       particlesJS("particles-js", {
